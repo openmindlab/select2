@@ -1173,6 +1173,47 @@ S2.define('select2/results',[
       }
     });
 
+    container.on('results:find', function (params) {
+      var charCode = String.fromCharCode(params.key);
+      var charRegexp = new RegExp('[a-z-A-Z-0-9\s]');
+
+      if(charRegexp.test(charCode)){
+        window.clearTimeout(self.data.container._keySearchTimer);
+        self.data.container._searchQuery += charCode;
+        var searchOption = '';
+        var $searchContent = container.isOpen()?
+          self.$results.find('li'):
+          self.$element.find('option');
+        var searchRegExp =
+              new RegExp('^'+self.data.container._searchQuery ,'i');
+        $.each($searchContent, function (index, value) {
+          if(searchRegExp.test($.trim($(value).text()))){
+            searchOption = $(value);
+            return false;
+          }
+        });
+
+        if(searchOption !== '') {
+          if(container.isOpen()){
+            searchOption.trigger('mouseenter');
+            var currentOffset = self.$results.offset().top +
+              self.$results.outerHeight(false);
+            var nextBottom = searchOption.offset().top +
+              searchOption.outerHeight(false);
+            var nextOffset = self.$results.scrollTop()+
+              nextBottom - currentOffset;
+            self.$results.scrollTop(nextOffset);
+          }else{
+            self.$element.val(searchOption.attr('value')).trigger('change');
+          }
+        }
+        self.data.container._keySearchTimer = window.setTimeout(function () {
+          self.data.container._searchQuery = '';
+          self.data.container._keySearchTimer = 0;
+        },2000);
+      }
+    });
+
     container.on('results:focus', function (params) {
       params.element.addClass('select2-results__option--highlighted');
     });
@@ -5133,6 +5174,9 @@ S2.define('select2/core',[
     this._syncAttributes();
 
     $element.data('select2', this);
+
+    this._keySearchTimer = 0;
+    this._searchQuery = '';
   };
 
   Utils.Extend(Select2, Utils.Observable);
@@ -5329,6 +5373,9 @@ S2.define('select2/core',[
 
     this.on('close', function () {
       self.$container.removeClass('select2-container--open');
+      window.clearTimeout(self._keySearchTimer);
+      self._keySearchTimer = 0;
+      self._searchQuery = '';
     });
 
     this.on('enable', function () {
@@ -5390,6 +5437,8 @@ S2.define('select2/core',[
           self.trigger('results:next', {});
 
           evt.preventDefault();
+        }else if(self.options.get('minimumResultsForSearch') === Infinity){
+          self.trigger('results:find',{key:key});
         }
       } else {
         if (key === KEYS.ENTER || key === KEYS.SPACE ||
@@ -5397,6 +5446,8 @@ S2.define('select2/core',[
           self.open();
 
           evt.preventDefault();
+        }else if(self.options.get('minimumResultsForSearch') === Infinity){
+          self.trigger('results:find',{key:key});
         }
       }
     });
