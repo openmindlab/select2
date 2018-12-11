@@ -103,7 +103,7 @@ define([
 
     $rendered.empty().append(formatted);
     var title = selection.title || selection.text;
-    $rendered.prop('title', title.trim());
+    $rendered.prop('title', $.trim(title));
   };
 
   return SingleSelection;

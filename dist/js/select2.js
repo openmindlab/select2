@@ -1630,7 +1630,7 @@ S2.define('select2/selection/single',[
 
     $rendered.empty().append(formatted);
     var title = selection.title || selection.text;
-    $rendered.prop('title', title.trim());
+    $rendered.prop('title', $.trim(title));
   };
 
   return SingleSelection;
