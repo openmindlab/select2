@@ -84,6 +84,9 @@ define([
     this._syncAttributes();
 
     $element.data('select2', this);
+
+    this._keySearchTimer = 0;
+    this._searchQuery = '';
   };
 
   Utils.Extend(Select2, Utils.Observable);
@@ -280,6 +283,9 @@ define([
 
     this.on('close', function () {
       self.$container.removeClass('select2-container--open');
+      window.clearTimeout(self._keySearchTimer);
+      self._keySearchTimer = 0;
+      self._searchQuery = '';
     });
 
     this.on('enable', function () {
@@ -341,6 +347,8 @@ define([
           self.trigger('results:next', {});
 
           evt.preventDefault();
+        }else if(self.options.get('minimumResultsForSearch') === Infinity){
+          self.trigger('results:find',{key:key});
         }
       } else {
         if (key === KEYS.ENTER || key === KEYS.SPACE ||
@@ -348,6 +356,8 @@ define([
           self.open();
 
           evt.preventDefault();
+        }else if(self.options.get('minimumResultsForSearch') === Infinity){
+          self.trigger('results:find',{key:key});
         }
       }
     });
