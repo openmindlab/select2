@@ -1629,7 +1629,8 @@ S2.define('select2/selection/single',[
     this.$selection.attr('aria-label', selectLabel+' '+formatted.trim());
 
     $rendered.empty().append(formatted);
-    $rendered.prop('title', selection.title || selection.text);
+    var title = selection.title || selection.text;
+    $rendered.prop('title', title.trim());
   };
 
   return SingleSelection;
