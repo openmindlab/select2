@@ -90,6 +90,16 @@ define([
 
     var $rendered = this.$selection.find('.select2-selection__rendered');
     var formatted = this.display(selection, $rendered);
+	/**
+	 * openmind fork in order to make it ADA compliant
+	 * @type {string}
+	 */
+	  var elementId = $rendered.attr('id').replace('select2-','').replace('-container','');
+	  var labelText = $('label[for="'+elementId+'"]').clone().children().remove().end().text().trim();
+
+	  var selectLabel = labelText.trim()+' :';
+
+    this.$selection.attr('aria-label', selectLabel+' '+formatted.trim());
 
     $rendered.empty().append(formatted);
     $rendered.prop('title', selection.title || selection.text);
