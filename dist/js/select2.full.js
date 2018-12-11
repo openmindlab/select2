@@ -1626,7 +1626,10 @@ S2.define('select2/selection/single',[
 
 	  var selectLabel = labelText.trim()+' :';
 
-    this.$selection.attr('aria-label', selectLabel+' '+formatted.trim());
+	  if(typeof formatted === 'string'){
+      this.$selection.attr('aria-label', selectLabel+' '+formatted.trim());
+    }
+
 
     $rendered.empty().append(formatted);
     var title = selection.title || selection.text;
