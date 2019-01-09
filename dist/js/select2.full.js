@@ -1185,7 +1185,7 @@ S2.define('select2/results',[
           self.$results.find('li'):
           self.$element.find('option');
         var searchRegExp =
-              new RegExp('^'+self.data.container._searchQuery ,'i');
+              new RegExp(self.data.container._searchQuery ,'i');
         $.each($searchContent, function (index, value) {
           if(searchRegExp.test($.trim($(value).text()))){
             searchOption = $(value);
