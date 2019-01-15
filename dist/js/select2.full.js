@@ -4341,9 +4341,15 @@ S2.define('select2/dropdown/attachBody',[
     var enoughRoomBelow = viewport.bottom > (offset.bottom + dropdown.height);
 
     var css = {
-      left: offset.left,
+      //left: offset.left,
       top: container.bottom
     };
+
+    if(this.options.options.dir === 'rtl'){
+      css.right = offset.left;
+    }else{
+      css.left = offset.left;
+    }
 
     // Determine what the parent element is to use for calciulating the offset
     var $offsetParent = this.$dropdownParent;
@@ -4357,7 +4363,13 @@ S2.define('select2/dropdown/attachBody',[
     var parentOffset = $offsetParent.offset();
 
     css.top -= parentOffset.top;
-    css.left -= parentOffset.left;
+    //css.left -= parentOffset.left;
+
+    if(this.options.options.dir === 'rtl'){
+      css.right -= parentOffset.left;
+    }else{
+      css.left -= parentOffset.left;
+    }
 
     if (!isCurrentlyAbove && !isCurrentlyBelow) {
       newDirection = 'below';
