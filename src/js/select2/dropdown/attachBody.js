@@ -220,7 +220,7 @@ define([
       css.width = 'auto';
     }
 
-    this.$dropdown.css(css);
+    this.$dropdown.css(css).trigger('select2:dropdownSized');
   };
 
   AttachBody.prototype._showDropdown = function (decorated) {

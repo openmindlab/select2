@@ -4409,7 +4409,7 @@ S2.define('select2/dropdown/attachBody',[
       css.width = 'auto';
     }
 
-    this.$dropdown.css(css);
+    this.$dropdown.css(css).trigger('select2:dropdownSized');
   };
 
   AttachBody.prototype._showDropdown = function (decorated) {
