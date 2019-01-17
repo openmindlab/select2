@@ -1072,6 +1072,7 @@ S2.define('select2/results',[
 
       self.setClasses();
       self.ensureHighlightVisible();
+      self.trigger('select2:dropdownSized');
     });
 
     container.on('close', function () {

@@ -295,6 +295,7 @@ define([
 
       self.setClasses();
       self.ensureHighlightVisible();
+      self.trigger('select2:dropdownSized');
     });
 
     container.on('close', function () {
