@@ -99,7 +99,8 @@ define([
 
 	  var selectLabel = labelText.trim()+' :';
 
-	  if(typeof formatted === 'string'){
+	  if(typeof formatted === 'string' &&
+      typeof this.$selection.attr('aria-labelledby') === 'undefined'){
       this.$selection.attr('aria-label', selectLabel+' '+formatted.trim());
     }
 
