@@ -1285,6 +1285,13 @@ S2.define('select2/results',[
         element: $(this)
       });
     });
+
+    this.$results.on('mouseleave', '.select2-results__option[aria-selected]',
+      function (evt) {
+        var data = $(this).data('data');
+        self.getHighlightedResults()
+            .removeClass('select2-results__option--highlighted');
+      });
   };
 
   Results.prototype.getHighlightedResults = function () {
@@ -1627,7 +1634,8 @@ S2.define('select2/selection/single',[
 
 	  var selectLabel = labelText.trim()+' :';
 
-	  if(typeof formatted === 'string'){
+	  if(typeof formatted === 'string' &&
+      typeof this.$selection.attr('aria-labelledby') === 'undefined'){
       this.$selection.attr('aria-label', selectLabel+' '+formatted.trim());
     }
 

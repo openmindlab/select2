@@ -508,6 +508,13 @@ define([
         element: $(this)
       });
     });
+
+    this.$results.on('mouseleave', '.select2-results__option[aria-selected]',
+      function (evt) {
+        var data = $(this).data('data');
+        self.getHighlightedResults()
+            .removeClass('select2-results__option--highlighted');
+      });
   };
 
   Results.prototype.getHighlightedResults = function () {
