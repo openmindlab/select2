@@ -1209,7 +1209,7 @@ S2.define('select2/results',[
           }
         }
         self.data.container._keySearchTimer = window.setTimeout(function () {
-          self.data.container._searchQuery = '';
+          self.data.container._searchQuery = '^';
           self.data.container._keySearchTimer = 0;
         },2000);
       }
@@ -5211,7 +5211,7 @@ S2.define('select2/core',[
     $element.data('select2', this);
 
     this._keySearchTimer = 0;
-    this._searchQuery = '';
+    this._searchQuery = '^';
   };
 
   Utils.Extend(Select2, Utils.Observable);
@@ -5410,7 +5410,7 @@ S2.define('select2/core',[
       self.$container.removeClass('select2-container--open');
       window.clearTimeout(self._keySearchTimer);
       self._keySearchTimer = 0;
-      self._searchQuery = '';
+      self._searchQuery = '^';
     });
 
     this.on('enable', function () {
