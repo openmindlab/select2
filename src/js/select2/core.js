@@ -86,7 +86,8 @@ define([
     $element.data('select2', this);
 
     this._keySearchTimer = 0;
-    this._searchQuery = '^';
+    this._defaultSearchQuery = '^(\\+\\d+\\s+)?';
+    this._searchQuery = this._defaultSearchQuery;
   };
 
   Utils.Extend(Select2, Utils.Observable);
@@ -285,7 +286,7 @@ define([
       self.$container.removeClass('select2-container--open');
       window.clearTimeout(self._keySearchTimer);
       self._keySearchTimer = 0;
-      self._searchQuery = '^';
+      self._searchQuery = self._defaultSearchQuery;
     });
 
     this.on('enable', function () {

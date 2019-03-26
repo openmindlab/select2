@@ -432,7 +432,7 @@ define([
           }
         }
         self.data.container._keySearchTimer = window.setTimeout(function () {
-          self.data.container._searchQuery = '^';
+          self.data.container._searchQuery = self.data.container._defaultSearchQuery;
           self.data.container._keySearchTimer = 0;
         },2000);
       }
