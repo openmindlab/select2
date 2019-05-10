@@ -3981,7 +3981,12 @@ S2.define('select2/dropdown/search',[
     this.$searchContainer = $search;
     this.$search = $search.find('input');
 
-    $rendered.prepend($search);
+    //$rendered.prepend($search);
+    if(this.options.options.inputPosition === 'bottom'){
+      $rendered.append($search);
+    } else {
+      $rendered.prepend($search);
+    }
 
     return $rendered;
   };
