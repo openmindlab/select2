@@ -18,8 +18,12 @@ define([
     this.$searchContainer = $search;
     this.$search = $search.find('input');
 
-    $rendered.prepend($search);
-
+    if(this.options.inputPosition == 'down'){
+      $rendered.append($search);
+    } else {
+      $rendered.prepend($search);
+    }
+    
     return $rendered;
   };
 
